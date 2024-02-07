@@ -10,11 +10,11 @@ import mask.showBoxed
   // Address(***)
 }
 
-opaque type MaskedValue <: String = String
+opaque type SecretValue <: String = String
 
-opaque type Address <: MaskedValue = MaskedValue
+opaque type Address <: SecretValue = SecretValue
 
 object Address:
   def from(value: String): Either[Throwable, Address] = Right(value)
 
-inline given Show[MaskedValue] = (_:MaskedValue)=> "***"
+inline given Show[SecretValue] = (_:SecretValue)=> "***"
