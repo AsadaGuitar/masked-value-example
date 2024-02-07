@@ -4,17 +4,35 @@ import cats.Show
 import cats.syntax.show.*
 import mask.given
 import mask.showBoxed
+import types.*
 
-@main def main(): Unit = {
-  println(Address.from("Address").toOption.get.showBoxed) 
+@main def main(): Unit = 
+  import `derives`.given
+
+  println(Address.from("address").toOption.get.showBoxed) 
   // Address(***)
-}
+  println(ProductName.from("product_name").toOption.get.showBoxed)
+  // ProductName(product_name)
 
-opaque type SecretValue <: String = String
 
-opaque type Address <: SecretValue = SecretValue
+object derives:
+  inline given derivedShowString[A <: String]: Show[A] = new Show:
+    def show(t: A): String = t 
 
-object Address:
-  def from(value: String): Either[Throwable, Address] = Right(value)
+  inline given derivedShowSecretValue[A <: SecretValue]: Show[A] = new Show:
+    def show(t: A): String = "***"
 
-inline given Show[SecretValue] = (_:SecretValue)=> "***"
+    
+object types:
+  
+  opaque type SecretValue <: String = String
+
+  opaque type Address <: SecretValue = SecretValue
+
+  object Address:
+    def from(value: String): Either[Throwable, Address] = Right(value)
+    
+  opaque type ProductName <: String = String
+
+  object ProductName:
+    def from(value: String): Either[Throwable, ProductName] = Right(value)
