@@ -10,10 +10,9 @@ import mask.showBoxed
 }
 
 opaque type MaskedValue <: String = String
-object MaskedValue:
-  private def apply(): MaskedValue = ""
 
 opaque type Address <: MaskedValue = MaskedValue
+
 object Address:
   def from(value: String): Either[Throwable, Address] = Right(value)
 
