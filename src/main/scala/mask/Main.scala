@@ -7,6 +7,7 @@ import mask.showBoxed
 
 @main def main(): Unit = {
   println(Address.from("Address").toOption.get.showBoxed) 
+  // Address(***)
 }
 
 opaque type MaskedValue <: String = String
