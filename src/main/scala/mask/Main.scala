@@ -7,7 +7,7 @@ import mask.showBoxed
 import types.*
 
 @main def main(): Unit = 
-  import `derives`.given
+  import `instances`.given
 
   println(Address.from("address").toOption.get.showBoxed) 
   // Address(***)
@@ -15,11 +15,11 @@ import types.*
   // ProductName(product_name)
 
 
-object derives:
-  inline given derivedShowString[A <: String]: Show[A] = new Show:
+object instances:
+  inline given showString[A <: String]: Show[A] = new Show:
     def show(t: A): String = t 
 
-  inline given derivedShowSecretValue[A <: SecretValue]: Show[A] = new Show:
+  inline given showSecretValue[A <: SecretValue]: Show[A] = new Show:
     def show(t: A): String = "***"
 
     
